@@ -1,0 +1,20 @@
+Introducción y Contexto del Estudio
+El presente informe analiza la evolución de los principales indicadores socioeconómicos y laborales en Argentina durante la última década (2016-2025). El estudio se estructura sobre un análisis comparativo de dos de los principales centros urbanos del país: el Gran Buenos Aires (GBA) y el Gran Córdoba. La fuente principal de información son las bases de microdatos individuales de la Encuesta Permanente de Hogares (EPH), provistas por el Instituto Nacional de Estadística y Censos (INDEC). Se seleccionó el cuarto trimestre de cada año para evitar sesgos de estacionalidad y establecer una ventana de observación consistente a lo largo de los diez períodos continuos.
+
+Procesamiento de los Datos
+Automatizamos la descarga y el ordenamiento de los datos utilizando el lenguaje R. Durante el proceso, notamos que las bases de datos históricas del INDEC tenían problemas de coherencia: una misma variable demográfica podía aparecer como texto en un período y como número en otro. Para resolverlo, diseñamos un filtro que unifica el formato de los datos de manera automática durante la misma descarga. Esto nos permitió consolidar toda la información histórica en una única base limpia y completa.
+
+Metodología de Extracción y Procesamiento (Pipeline de Datos)
+La obtención y estructuración de los datos se automatizó mediante un script en lenguaje R, implementando los paquetes eph, dplyr y purrr. Durante la extracción iterativa, se identificaron inconsistencias estructurales en las bases históricas del INDEC (mutaciones en el tipo de dato de variables demográficas entre formato entero y cadena de texto). Esto se resolvió mediante rutinas de coerción de tipos integradas al ciclo de descarga, logrando consolidar el dataset longitudinal sin pérdida de registros.
+
+El flujo de procesamiento de los microdatos consistió en:
+
+Estandarización categórica: Traducción de la codificación numérica original del INDEC a etiquetas descriptivas legibles para facilitar el análisis estadístico posterior.
+
+Filtro geográfico espacial: Aislamiento de las observaciones estrictamente correspondientes a la jurisdicción del Gran Córdoba (Aglomerado 13) y el conglomerado metropolitano del Gran Buenos Aires (Aglomerados 32 de CABA y 33 de Partidos del GBA).
+
+Reducción de dimensionalidad: Depuración de la matriz de datos, reteniendo exclusivamente las variables pertinentes para dimensiones demográficas (CH04, CH06, NIVEL_ED), laborales (ESTADO, CAT_OCUP, PP04B_COD, PP04D_COD) y métricas de ingresos (P21, P47T, ITF, IPCF), junto con sus respectivos ponderadores poblacionales.
+
+Estructura de la Muestra y Restricciones Operativas
+La consolidación arrojó un volumen muestral que promedia anualmente los 10.000 casos en GBA y 2.300 en Gran Córdoba. Como restricción metodológica central, los datos auditan una contracción atípica de la muestra durante el año 2020, registrando una caída superior al 50% en la recolección de campo (3.975 casos en GBA y 1.133 en Gran Córdoba). Esta anomalía se explica por las limitaciones operativas del INDEC frente al Aislamiento Social, Preventivo y Obligatorio (ASPO), un factor que introduce márgenes de error más amplios en las estimaciones de ese período específico.
+
