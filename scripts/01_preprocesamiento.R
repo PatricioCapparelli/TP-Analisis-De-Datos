@@ -1,3 +1,8 @@
+install.packages("eph")
+install.packages("dplyr")
+install.packages("purrr")
+install.packages("ggplot2")
+
 library(eph)
 library(dplyr)
 library(purrr)
